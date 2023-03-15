@@ -1,0 +1,65 @@
+.full-post {
+  display: flex;
+}
+textarea {
+  height: 90px;
+  max-height: 150px;
+}
+#edit-post {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#post-button {
+  width: 15%;
+}
+#post-username {
+  font-size: smaller;
+  font-weight: bold;
+}
+#post-time {
+  font-size: x-small;
+  font-style: italic;
+  color: rgb(100, 100, 100);
+}
+#sm-alert {
+  animation-delay: 0s;
+  animation-name: fade;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  height: 58px;
+}
+
+.profile-username {
+  text-align: center;
+  background-color: lavender;
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+    height: 58px;
+  }
+  75% {
+    opacity: 0;
+    height: 58px;
+  }
+  100% {
+    opacity: 0;
+    height: 0px;
+  }
+}
+#post-likes {
+  font-size: 11px;
+  margin: auto;
+  text-align: center;
+}
+
+#edit-post-button {
+  font-size: xx-small;
+}
+.nav-link {
+  font-size: large;
+  color: white;
+}

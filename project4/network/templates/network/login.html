@@ -1,0 +1,25 @@
+{% extends "network/layout.html" %}
+{% block title %}Social Network: Login {% endblock %}
+
+{% block body %}
+<div class="container-sm shadow rounded border rounded-3 p-5  py-3 m-auto my-3 ">
+
+    {% if message %}
+    <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post" class="w-50 m-auto d-flex flex-column gy-5">
+        <h2>Login</h2>
+        {% csrf_token %}
+        <div class="form-group m-2">
+            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+        </div>
+        <div class="form-group m-2">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <input class="btn btn-primary m-2" type="submit" value="Login">
+    </form>
+
+    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+</div>
+{% endblock %}

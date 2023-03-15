@@ -1,0 +1,112 @@
+{% extends "network/layout.html" %}
+{% block title %}Social Network: {{profile.username}} {% endblock %}
+
+{% block body %}
+
+<div class="d-flex flex-column container-sm shadow rounded border rounded-3 p-4  m-auto my-4 ">
+    <div
+        class="container rounded border rounded-3 p-2 profile-username d-flex flex-column justify-content-start align-items-start">
+        <div class="text-center w-100 p-3">
+            <h3 class="">{{profile.username}}</h3>
+
+        </div>
+        <div class="d-flex justify-content-center align-items-center w-100">
+
+            <div class="badge bg-secondary mx-4">
+                Followers {{profile.followers.count}}
+
+            </div>
+            <div class="badge bg-secondary mx-4">
+                Following {{profile.following.count}}
+            </div>
+            <form action="{% url 'follow' username=profile.username %}" method="post">
+                {% csrf_token %}
+                {% if follower == "following" %}
+                <input type="hidden" name="state" value="followed">
+                <button id="following-btn" type="submit" class="btn btn-success btn-sm" h>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person-check" viewBox="0 0 16 16">
+                        <path
+                            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z">
+                        </path>
+                        <path
+                            d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z">
+                        </path>
+                    </svg>
+                    <span>Following</span>
+                </button>
+                {% elif follower == "not_following" %}
+                <input type="hidden" name="state" value="not_follow">
+                <button id="follow-btn" type="submit" class="btn btn-sm btn-outline-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person-check" viewBox="0 0 16 16">
+                        <path
+                            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z">
+                        </path>
+                        <path
+                            d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z">
+                        </path>
+                    </svg>
+                    Follow
+                </button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'network/showposts.html' %}
+
+
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation example" class="container-sm d-flex justify-content-center">
+    <ul class="pagination">
+
+        {% if page_obj.number > 2 %}
+        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">First</a>
+        </li>
+        {% endif %}
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        </li>
+
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item"><a class="page-link active" href='?page={{ page_obj.number }}'>
+                {{ page_obj.number }}</a></li>
+
+
+        {% if page_obj.has_next %}
+
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% if page_obj.next_page_number == page_obj.paginator.num_pages %} <li class="page-item"><a
+                class="disabled page-link" href="?page={{ page_obj.paginator.num_pages }}">Last
+            </a></li>
+        {% else %}
+        <li class="page-item"><a class=" page-link" href="?page={{ page_obj.paginator.num_pages }}">Last
+            </a></li>
+
+        {% endif %}
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">Next</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link">Last</a>
+        </li>
+        {% endif %}
+
+
+    </ul>
+</nav>
+{% endif %}
+
+
+{% endblock %}

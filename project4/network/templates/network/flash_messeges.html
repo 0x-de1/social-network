@@ -1,0 +1,20 @@
+{% load static %}
+
+{% if messages %}
+<script src="{% static 'network/messege.js' %}"></script>
+<div>
+
+    <div id="sm-alert" class=" d-flex justify-content-center align-items-center ">
+
+        {% for message in messages %}
+        <span class=" messages fw-light alert 
+        {% if message.tags %} {{ message.tags }} {% endif %} d-flex align-items-center p-2 m-2" role="alert">
+
+            {{ message }}
+
+        </span>
+        {% endfor %}
+    </div>
+</div>
+
+{% endif %}
